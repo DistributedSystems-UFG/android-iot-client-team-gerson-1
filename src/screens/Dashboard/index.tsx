@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Dimensions, View } from "react-native";
 import { Temperature } from "../Temperature";
+import { Header } from "./Header";
 import { MenuButton } from "./MenuButton";
 export function Dashboard() {
   const windowWidth = Dimensions.get("window").width;
@@ -32,6 +33,7 @@ export function Dashboard() {
         backgroundColor: theme.palette.background.main,
       }}
     >
+      <Header/>
       <HStack mt={20} spacing={2} wrap="wrap" center>
         <MenuButton
           icon={blueLed ?  "led-on" : "led-off"}

@@ -10,6 +10,7 @@ interface MenuButtonProps {
 
 export function MenuButton({ icon, label, onPress, state }: MenuButtonProps) {
   const theme = useTheme();
+  
   return (
     <TouchableOpacity
       style={{
