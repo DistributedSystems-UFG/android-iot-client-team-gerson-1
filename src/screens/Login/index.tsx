@@ -9,13 +9,39 @@ import {
   useTheme,
 } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/native";
+import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
 import { Dimensions, View } from "react-native";
+import api from "../../services/api";
+import authAtom from "../../store/auth";
 
-export function Home() {
+export function Login() {
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const navigation = useNavigation();
   const theme = useTheme()
+
+
+  const [token, setToken] = useAtom(authAtom);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (token) {
+      api.defaults.headers["Authorization"] = token;
+      navigation.navigate("Dashboard");
+    }
+  }, [token]);
+
+  const handleSubmit = async () => {
+    const response = await api.post("/auth/login", {
+      email,
+      password,
+    });
+    setToken(response.data.token);
+  };
+
   return (
     <View
       style={{
@@ -50,12 +76,19 @@ export function Home() {
         >
           <Stack spacing={2}  style={{  width: windowWidth, paddingHorizontal: 20 }}>
             <TextInput
-              label="User"
+              label="E-mail"
               leading={(props) => <Icon name="account" {...props} />}
+              onChangeText={(text) => setEmail(text)}
+              autoCapitalize="none"
+              autoCorrect={false}
             />
             <TextInput
               label="Password"
               leading={(props) => <Icon name="lock" {...props} />}
+              onChangeText={(text) => setPassword(text)}
+              autoCapitalize="none"
+              secureTextEntry
+              autoCorrect={false}
             />
           </Stack>
         </Box>
@@ -69,7 +102,7 @@ export function Home() {
           }}
         >
           <Button
-            onPress={() => navigation.navigate("Dashboard" as never)}
+            onPress={() => handleSubmit()}
             title="Login"
           />
         </Box>

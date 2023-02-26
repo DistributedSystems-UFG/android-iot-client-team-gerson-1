@@ -1,6 +1,6 @@
 import { HStack, Text, useTheme } from "@react-native-material/core";
-import { useEffect, useState } from "react";
 import { View } from "react-native";
+import useTemperature from "../../query/useTemperature";
 
 interface TemperatureProps {
   toggleTemperature: boolean;
@@ -9,22 +9,13 @@ interface TemperatureProps {
 export function Temperature({ toggleTemperature }: TemperatureProps) {
   const theme = useTheme();
 
-  const [temperature, setTemperature] = useState('0.0');
 
-  function generateRandomTemperature() {
-    return (Math.random() * (40.0 - 35.0) + 35.0).toFixed(1);
-  }
+  const { data: temperature, refetch: refetchLastTemperature } =
+    useTemperature();
 
-  // keep updating the temperature in  loop
-  useEffect(() => {
-    if(toggleTemperature){
-      const interval = setInterval(() => {
-        setTemperature(generateRandomTemperature());
-      }, 1500);
-      return () => clearInterval(interval);
-    }
-  }, []);
-
+  const refetchAll = () => {
+    refetchLastTemperature();
+  };
 
   return (
     <HStack m={4} spacing={6}>
@@ -35,10 +26,10 @@ export function Temperature({ toggleTemperature }: TemperatureProps) {
           style={{ textAlign: "center", marginBottom: 10 }}
           
         >
-          Temperature
+          Temperatura
         </Text>
         <Text variant="h5" color="#000" style={{ textAlign: "center" }}>
-          {temperature}
+          {temperature.temperature.toFixed(2)}  ºC  
         </Text>
       </View>
     </HStack>

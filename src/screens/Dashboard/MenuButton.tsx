@@ -6,6 +6,7 @@ interface MenuButtonProps {
   label: string;
   onPress: () => void;
   state?: boolean;
+  id: string;
 }
 
 export function MenuButton({ icon, label, onPress, state }: MenuButtonProps) {
@@ -30,7 +31,12 @@ export function MenuButton({ icon, label, onPress, state }: MenuButtonProps) {
       <Icon  name={icon} size={24}  color={theme.palette.primary.main} style={{
         marginBottom: 10
       }} />
-      <Text variant="button" color={theme.palette.primary.main}>
+      <Text variant="button" color={theme.palette.primary.main}
+        style={{
+          textAlign: "center",
+          fontSize: 14,
+        }}
+      >
         {label}
       </Text>
     </TouchableOpacity>
