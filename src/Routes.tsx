@@ -11,7 +11,7 @@ export default function Routes() {
       <Stack.Screen
         name="Dashboard"
         component={Dashboard}
-        options={{ headerBackButtonMenuEnabled: false, headerBackVisible: false }}
+        options={{ headerShown:false }}
       />
     </Stack.Navigator>
   );

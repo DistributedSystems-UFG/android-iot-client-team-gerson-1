@@ -21,8 +21,9 @@ export function Header() {
   return (
     <Box
       style={{
+        paddingTop: windowHeight / 20,
         backgroundColor: "#5636d3",
-        height: 96,
+        height: windowHeight / 6,
         width: windowWidth,
         paddingHorizontal: 24,
         flexDirection: "row",

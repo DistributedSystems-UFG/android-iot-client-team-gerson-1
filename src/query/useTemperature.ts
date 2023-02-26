@@ -7,6 +7,8 @@ export const useTemperature = () => {
   const response = useQuery(QUERY_KEY, async () => {
     const response = await api.get("/temperature");
     return response.data;
+  },{
+    refetchInterval: 2000,
   });
 
   return response;

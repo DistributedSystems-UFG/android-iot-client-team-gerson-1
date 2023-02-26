@@ -29,7 +29,7 @@ export function Temperature({ toggleTemperature }: TemperatureProps) {
           Temperatura
         </Text>
         <Text variant="h5" color="#000" style={{ textAlign: "center" }}>
-          {temperature.temperature.toFixed(2)}  ºC  
+          {temperature ? temperature.temperature.toFixed(2) : '0'}  ºC  
         </Text>
       </View>
     </HStack>
